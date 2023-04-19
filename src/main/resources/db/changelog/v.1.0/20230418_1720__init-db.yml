@@ -1,0 +1,375 @@
+databaseChangeLog:
+  - changeSet:
+      id: 202304181720-1
+      author: Mark
+      changes:
+        - createTable:
+            tableName: authority_group
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: authority_group_pkey
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 202304181720-2
+      author: Mark
+      changes:
+        - createTable:
+            tableName: authority_group_authorities
+            columns:
+              - column:
+                  name: authority_group_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: authority_group_authorities_pkey
+              - column:
+                  name: authorities_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: authority_group_authorities_pkey
+  - changeSet:
+      id: 202304181720-3
+      author: Mark
+      changes:
+        - createTable:
+            tableName: authority
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: authority_pkey
+              - column:
+                  name: authority
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 202304181720-4
+      author: Mark
+      changes:
+        - createTable:
+            tableName: security_user_authorities
+            columns:
+              - column:
+                  name: security_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: security_user_authorities_pkey
+              - column:
+                  name: authorities_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: security_user_authorities_pkey
+  - changeSet:
+      id: 202304181720-5
+      author: Mark
+      changes:
+        - createTable:
+            tableName: security_user_authority_groups
+            columns:
+              - column:
+                  name: security_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: security_user_authority_groups_pkey
+              - column:
+                  name: authority_groups_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: security_user_authority_groups_pkey
+  - changeSet:
+      id: 202304181720-6
+      author: Mark
+      changes:
+        - createTable:
+            tableName: git_hub_user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: git_hub_user_pkey
+              - column:
+                  name: avatar_url
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: html_url
+                  type: VARCHAR(255)
+              - column:
+                  name: location
+                  type: VARCHAR(255)
+              - column:
+                  name: login
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: twitter_username
+                  type: VARCHAR(255)
+              - column:
+                  name: security_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 202304181720-7
+      author: Mark
+      changes:
+        - createTable:
+            tableName: credentials
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: credentials_pkey
+              - column:
+                  name: login
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: security_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 202304181720-8
+      author: Mark
+      changes:
+        - createTable:
+            tableName: security_user
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: security_user_pkey
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 202304181720-9
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_authority_group_authorities_on_authority_group
+            baseTableName: authority_group_authorities
+            baseColumnNames: authority_group_id
+            referencedTableName: authority_group
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-10
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_security_user_authority_groups_on_authority_group
+            baseTableName: security_user_authority_groups
+            baseColumnNames: authority_groups_id
+            referencedTableName: authority_group
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-11
+      author: Mark
+      changes:
+        - createIndex:
+            indexName: uc_authority_group_name
+            tableName: authority_group
+            columns:
+              - column:
+                  name: name
+            unique: true
+  - changeSet:
+      id: 202304181720-12
+      author: Mark
+      changes:
+        - createIndex:
+            indexName: uc_authority_group_description
+            tableName: authority_group
+            columns:
+              - column:
+                  name: description
+            unique: true
+  - changeSet:
+      id: 202304181720-13
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_authority_group_authorities_on_authority
+            baseTableName: authority_group_authorities
+            baseColumnNames: authorities_id
+            referencedTableName: authority
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-14
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_security_user_authorities_on_authority
+            baseTableName: security_user_authorities
+            baseColumnNames: authorities_id
+            referencedTableName: authority
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-15
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_git_hub_user_on_security_user
+            baseTableName: git_hub_user
+            baseColumnNames: security_user_id
+            referencedTableName: security_user
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-16
+      author: Mark
+      changes:
+        - addUniqueConstraint:
+            tableName: authority
+            columnNames: description
+            constraintName: uk_authority_description
+  - changeSet:
+      id: 202304181720-17
+      author: Mark
+      changes:
+        - addUniqueConstraint:
+            tableName: authority
+            columnNames: authority
+            constraintName: uk_authority_authority
+  - changeSet:
+      id: 202304181720-18
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_security_user_authorities_on_security_user
+            baseTableName: security_user_authorities
+            baseColumnNames: security_user_id
+            referencedTableName: security_user
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-19
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_security_user_authority_groups_on_security_user
+            baseTableName: security_user_authority_groups
+            baseColumnNames: security_user_id
+            referencedTableName: security_user
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-20
+      author: Mark
+      changes:
+        - addUniqueConstraint:
+            tableName: git_hub_user
+            columnNames: security_user_id
+            constraintName: uk_git_hub_user_security_user_id
+  - changeSet:
+      id: 202304181720-21
+      author: Mark
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_credentials_on_security_user
+            baseTableName: credentials
+            baseColumnNames: security_user_id
+            referencedTableName: security_user
+            referencedColumnNames: id
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            validate: true
+  - changeSet:
+      id: 202304181720-22
+      author: Mark
+      changes:
+        - addUniqueConstraint:
+            tableName: credentials
+            columnNames: security_user_id
+            constraintName: uk_credentials_security_user_id
+
