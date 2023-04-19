@@ -3,7 +3,7 @@ package com.bmo.common.authservice.service.provider;
 import com.bmo.common.authservice.model.AuthToken;
 import com.bmo.common.authservice.model.TokenBody;
 import com.bmo.common.authservice.model.oauth2.GitHubProvidedUser;
-import com.bmo.common.authservice.model.oauth2.ProviderType;
+import com.bmo.common.authservice.model.oauth2.Provider;
 import com.bmo.common.authservice.service.JwtTokenProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.UUID;
@@ -26,8 +26,8 @@ public class GitHubUserHandler implements UserHandler<GitHubProvidedUser> {
   }
 
   @Override
-  public ProviderType getProviderType() {
-    return ProviderType.GITHUB;
+  public Provider getProviderType() {
+    return Provider.GITHUB;
   }
 
   @Override

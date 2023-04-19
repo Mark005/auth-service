@@ -1,6 +1,6 @@
 package com.bmo.common.authservice.configs;
 
-import com.bmo.common.authservice.model.oauth2.ProviderType;
+import com.bmo.common.authservice.model.oauth2.Provider;
 import com.bmo.common.authservice.service.provider.UserHandler;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class CommonConfig {
 
   @Bean
-  public <T> Map<ProviderType, UserHandler<T>> providerTypeToUserHandler(List<UserHandler<T>> userHandlers) {
+  public <T> Map<Provider, UserHandler<T>> providerTypeToUserHandler(List<UserHandler<T>> userHandlers) {
     return userHandlers.stream()
         .collect(Collectors.toMap(
             UserHandler::getProviderType,

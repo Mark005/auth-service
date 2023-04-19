@@ -1,7 +1,7 @@
 package com.bmo.common.authservice.filter;
 
 import com.bmo.common.authservice.configs.properties.OAuth2ProvidersProperties;
-import com.bmo.common.authservice.configs.properties.OAuth2ProvidersProperties.Provider;
+import com.bmo.common.authservice.configs.properties.OAuth2ProvidersProperties.ProviderSettings;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -38,15 +38,15 @@ public class OAuth2LoginRedirectFiler extends OncePerRequestFilter {
       FilterChain filterChain) {
 
     String requestUrl = request.getRequestURI();
-    Provider provider = oAuthProperties.getProviderByAuthRequestUri(requestUrl);
-    Assert.notNull(provider, "ProviderType can not be null");
+    ProviderSettings providerSettings = oAuthProperties.getProviderByAuthRequestUri(requestUrl);
+    Assert.notNull(providerSettings, "Provider can not be null");
 
-    URIBuilder builder = new URIBuilder(provider.getAuthorizationUrl());
+    URIBuilder builder = new URIBuilder(providerSettings.getAuthorizationUrl());
     builder.addParameter("response_type", "code");
-    builder.addParameter("client_id", provider.getClientId());
-    builder.addParameter("scope", provider.getScope());
+    builder.addParameter("client_id", providerSettings.getClientId());
+    builder.addParameter("scope", providerSettings.getScope());
     builder.addParameter("state", UUID.randomUUID().toString());
-    builder.addParameter("redirect_uri", provider.getRedirectUrl());
+    builder.addParameter("redirect_uri", providerSettings.getRedirectUrl());
 
     String query = builder.build().toString();
     String decodedUrl = URLDecoder.decode(query, StandardCharsets.UTF_8);

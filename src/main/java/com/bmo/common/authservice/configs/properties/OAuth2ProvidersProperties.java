@@ -1,8 +1,9 @@
 package com.bmo.common.authservice.configs.properties;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import com.bmo.common.authservice.model.oauth2.Provider;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
@@ -18,56 +19,43 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "oauth2.client")
 public class OAuth2ProvidersProperties {
 
-  private Map<String, Provider> providers = new HashMap<>();
-
-  public Set<String> getProviderIds() {
-    return providers.keySet();
-  }
+  private List<ProviderSettings> providers = new ArrayList<>();
 
   public Set<String> getProvidersAuthRequestUris() {
     return providers
-        .values()
         .stream()
-        .map(Provider::getAuthorizationRequestUri)
+        .map(ProviderSettings::getAuthorizationRequestUri)
         .collect(Collectors.toSet());
   }
 
   public Set<String> getProvidersRedirectUrls() {
     return providers
-        .values()
         .stream()
-        .map(Provider::getRedirectUrl)
+        .map(ProviderSettings::getRedirectUrl)
         .collect(Collectors.toSet());
   }
 
-  public Provider getProviderByAuthRequestUri(String authRequestUri) {
+  public ProviderSettings getProviderByAuthRequestUri(String authRequestUri) {
     return providers
-        .values()
         .stream()
-        .filter(provider -> provider.getAuthorizationRequestUri().equals(authRequestUri))
+        .filter(providerSettings -> providerSettings.getAuthorizationRequestUri().equals(authRequestUri))
         .findFirst()
         .orElse(null);
   }
 
-  public Provider getProviderByRedirectUrl(String redirectUrl) {
+  public ProviderSettings getProviderByRedirectUrl(String redirectUrl) {
     return providers
-        .values()
         .stream()
-        .filter(provider -> provider.getRedirectUrl().equals(redirectUrl))
+        .filter(providerSettings -> providerSettings.getRedirectUrl().equals(redirectUrl))
         .findFirst()
         .orElse(null);
-  }
-
-  public Provider getProviderById(String providerId) {
-    Provider provider = providers.get(providerId);
-    if (provider == null) {
-      throw new IllegalArgumentException("ProviderType should not be null");
-    }
-    return provider;
   }
 
   @Data
-  public static class Provider {
+  public static class ProviderSettings {
+
+    @NotNull
+    private Provider provider;
 
     @NotNull
     private String clientId;
