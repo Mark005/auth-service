@@ -32,6 +32,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.2'
+
 	implementation 'org.apache.httpcomponents:httpclient:4.5.14'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
@@ -44,8 +46,6 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:1.5.1.Final",
 						"org.projectlombok:lombok",
 						"org.projectlombok:lombok-mapstruct-binding:0.2.0"
-
-//	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 

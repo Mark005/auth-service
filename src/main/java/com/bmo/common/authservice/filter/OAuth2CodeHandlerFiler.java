@@ -1,12 +1,12 @@
 package com.bmo.common.authservice.filter;
 
-import com.bmo.common.authservice.model.AuthToken;
-import com.bmo.common.authservice.model.oauth2.Provider;
-import com.bmo.common.authservice.service.provider.UserHandler;
-import com.bmo.common.authservice.model.oauth2.AccessTokenRequest;
-import com.bmo.common.authservice.model.oauth2.AccessTokenResponse;
 import com.bmo.common.authservice.configs.properties.OAuth2ProvidersProperties;
 import com.bmo.common.authservice.configs.properties.OAuth2ProvidersProperties.ProviderSettings;
+import com.bmo.common.authservice.model.AuthToken;
+import com.bmo.common.authservice.model.oauth2.AccessTokenRequestBody;
+import com.bmo.common.authservice.model.oauth2.AccessTokenResponseBody;
+import com.bmo.common.authservice.model.oauth2.Provider;
+import com.bmo.common.authservice.service.provider.UserHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class OAuth2CodeHandlerFiler extends OncePerRequestFilter {
     String code = request.getParameter("code");
     Assert.hasText(code, "Code not found in response");
 
-    AccessTokenResponse tokenResponse = getToken(providerSettings, code);
+    AccessTokenResponseBody tokenResponse = getToken(providerSettings, code);
 
     ObjectNode userJson = getUserJson(providerSettings, tokenResponse);
 
@@ -77,24 +77,24 @@ public class OAuth2CodeHandlerFiler extends OncePerRequestFilter {
     response.getWriter().write(objectMapper.writeValueAsString(authToken));
   }
 
-  private AccessTokenResponse getToken(ProviderSettings providerSettings, String code) {
+  private AccessTokenResponseBody getToken(ProviderSettings providerSettings, String code) {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
 
-    AccessTokenRequest accessTokenRequest = AccessTokenRequest.builder()
+    AccessTokenRequestBody accessTokenRequestBody = AccessTokenRequestBody.builder()
         .clientId(providerSettings.getClientId())
         .clientSecret(providerSettings.getClientSecret())
         .code(code)
         .build();
 
-    HttpEntity<AccessTokenRequest> request = new HttpEntity<>(accessTokenRequest, headers);
-    ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(
-        providerSettings.getTokenUrl(), request, AccessTokenResponse.class);
+    HttpEntity<AccessTokenRequestBody> request = new HttpEntity<>(accessTokenRequestBody, headers);
+    ResponseEntity<AccessTokenResponseBody> response = restTemplate.postForEntity(
+        providerSettings.getTokenUrl(), request, AccessTokenResponseBody.class);
     return response.getBody();
   }
 
 
-  private ObjectNode getUserJson(ProviderSettings providerSettings, AccessTokenResponse tokenResponse) {
+  private ObjectNode getUserJson(ProviderSettings providerSettings, AccessTokenResponseBody tokenResponse) {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setBearerAuth(tokenResponse.getAccessToken());

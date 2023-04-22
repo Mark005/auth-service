@@ -31,5 +31,5 @@ oauth2:
         user-info-url: https://api.github.com/user
 
 jwt:
-  expiration-hours: 24
+  valid-duration: PT24H
   secret: secret

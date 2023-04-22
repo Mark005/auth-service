@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Builder
 @Getter
@@ -33,6 +35,7 @@ public class Credentials {
 
   private String password;
 
+  @Fetch(FetchMode.JOIN)
   @OneToOne(optional = false, orphanRemoval = true)
   @JoinColumn(name = "security_user_id", nullable = false, unique = true)
   private SecurityUser securityUser;

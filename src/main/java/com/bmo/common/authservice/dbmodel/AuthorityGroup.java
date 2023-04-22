@@ -1,11 +1,13 @@
 package com.bmo.common.authservice.dbmodel;
 
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,10 @@ public class AuthorityGroup {
   @Column(name = "id", nullable = false)
   private UUID id;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "group_tag", nullable = false, unique = true)
+  private GroupTag groupTag;
+
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 
@@ -41,7 +47,7 @@ public class AuthorityGroup {
 
   @ManyToMany(mappedBy = "authorityGroups")
   @Builder.Default
-  private Set<SecurityUser> securityUsers = new LinkedHashSet<>();
+  private List<SecurityUser> securityUsers = new ArrayList<>();
 
 
   @ManyToMany
@@ -49,6 +55,7 @@ public class AuthorityGroup {
       joinColumns = @JoinColumn(name = "authority_group_id"),
       inverseJoinColumns = @JoinColumn(name = "authorities_id"))
   @Builder.Default
-  private Set<Authority> authorities = new LinkedHashSet<>();
+  private List<Authority> authorities = new ArrayList<>();
+
 
 }

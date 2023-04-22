@@ -14,12 +14,17 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: authority_group_pkey
               - column:
-                  name: description
+                  name: group_tag
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
@@ -233,6 +238,17 @@ databaseChangeLog:
       author: Mark
       changes:
         - createIndex:
+            indexName: uc_authority_group_group_tag
+            tableName: authority_group
+            columns:
+              - column:
+                  name: group_tag
+            unique: true
+  - changeSet:
+      id: 202304181720-12
+      author: Mark
+      changes:
+        - createIndex:
             indexName: uc_authority_group_name
             tableName: authority_group
             columns:
@@ -240,7 +256,7 @@ databaseChangeLog:
                   name: name
             unique: true
   - changeSet:
-      id: 202304181720-12
+      id: 202304181720-13
       author: Mark
       changes:
         - createIndex:
@@ -251,7 +267,7 @@ databaseChangeLog:
                   name: description
             unique: true
   - changeSet:
-      id: 202304181720-13
+      id: 202304181720-14
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -266,7 +282,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-14
+      id: 202304181720-15
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -281,7 +297,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-15
+      id: 202304181720-16
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -296,7 +312,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-16
+      id: 202304181720-17
       author: Mark
       changes:
         - addUniqueConstraint:
@@ -304,7 +320,7 @@ databaseChangeLog:
             columnNames: description
             constraintName: uk_authority_description
   - changeSet:
-      id: 202304181720-17
+      id: 202304181720-18
       author: Mark
       changes:
         - addUniqueConstraint:
@@ -312,7 +328,7 @@ databaseChangeLog:
             columnNames: authority
             constraintName: uk_authority_authority
   - changeSet:
-      id: 202304181720-18
+      id: 202304181720-19
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -327,7 +343,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-19
+      id: 202304181720-20
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -342,7 +358,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-20
+      id: 202304181720-21
       author: Mark
       changes:
         - addUniqueConstraint:
@@ -350,7 +366,7 @@ databaseChangeLog:
             columnNames: security_user_id
             constraintName: uk_git_hub_user_security_user_id
   - changeSet:
-      id: 202304181720-21
+      id: 202304181720-22
       author: Mark
       changes:
         - addForeignKeyConstraint:
@@ -365,7 +381,7 @@ databaseChangeLog:
             onUpdate: NO ACTION
             validate: true
   - changeSet:
-      id: 202304181720-22
+      id: 202304181720-23
       author: Mark
       changes:
         - addUniqueConstraint:
