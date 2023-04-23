@@ -4,7 +4,7 @@ services:
 
   auth-postgres-db:
     container_name: auth-postgres-db
-    image: postgres:12-alpine
+    image: postgres:13-alpine
     ports:
       - "54326:5432"
     environment:

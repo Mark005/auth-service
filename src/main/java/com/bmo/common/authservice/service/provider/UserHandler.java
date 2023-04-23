@@ -1,14 +1,14 @@
 package com.bmo.common.authservice.service.provider;
 
 import com.bmo.common.authservice.model.AuthToken;
-import com.bmo.common.authservice.model.oauth2.ProviderType;
+import com.bmo.common.authservice.model.oauth2.Provider;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public interface UserHandler<T> {
 
   TypeReference<T> getProvidedUserType();
 
-  ProviderType getProviderType();
+  Provider getProviderType();
 
   boolean isUserExists(T providedUser);
 

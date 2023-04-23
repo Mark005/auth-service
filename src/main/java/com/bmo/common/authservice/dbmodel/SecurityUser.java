@@ -1,7 +1,7 @@
 package com.bmo.common.authservice.dbmodel;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,14 +44,14 @@ public class SecurityUser {
       joinColumns = @JoinColumn(name = "security_user_id"),
       inverseJoinColumns = @JoinColumn(name = "authority_groups_id"))
   @Builder.Default
-  private Set<AuthorityGroup> authorityGroups = new LinkedHashSet<>();
+  private List<AuthorityGroup> authorityGroups = new ArrayList<>();
 
   @ManyToMany
   @JoinTable(name = "security_user_authorities",
       joinColumns = @JoinColumn(name = "security_user_id"),
       inverseJoinColumns = @JoinColumn(name = "authorities_id"))
   @Builder.Default
-  private Set<Authority> authorities = new LinkedHashSet<>();
+  private List<Authority> authorities = new ArrayList<>();
 
   @OneToOne(mappedBy = "securityUser", orphanRemoval = true)
   private GitHubUser gitHubUser;

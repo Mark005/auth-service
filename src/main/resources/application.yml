@@ -10,7 +10,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 #    generate-ddl: true
 
@@ -20,7 +20,7 @@ spring:
 oauth2:
   client:
     providers:
-      github:
+      - provider: github
         client-id: ${GITHUB_CLIENT_ID:3be5dba121b074dcd72d}
         client-secret: ${GITHUB_CLIENT_SECRET:411e16d70ebd97e2fe47553de7906a69a0cf8243}
         authorization-request-uri: /oauth2/authorization/github
@@ -31,5 +31,5 @@ oauth2:
         user-info-url: https://api.github.com/user
 
 jwt:
-  expiration-hours: 24
+  valid-duration: PT24H
   secret: secret

@@ -1,15 +1,16 @@
 package com.bmo.common.authservice.model;
 
-import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
+@Getter
 @AllArgsConstructor
-public class TokenBody {
-  private UUID userId;
-  private Set<String> authorities;
+public class SecurityUserDto {
+  private UUID id;
+  private String name;
+  private String surname;
+  private String email;
 }

@@ -1,7 +1,7 @@
 package com.bmo.common.authservice.dbmodel;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,11 +38,11 @@ public class Authority {
 
   @Builder.Default
   @ManyToMany(mappedBy = "authorities")
-  private Set<AuthorityGroup> authorityGroups = new LinkedHashSet<>();
+  private List<AuthorityGroup> authorityGroups = new ArrayList<>();
 
   @Builder.Default
   @ManyToMany(mappedBy = "authorities")
-  private Set<SecurityUser> securityUsers = new LinkedHashSet<>();
+  private List<SecurityUser> securityUsers = new ArrayList<>();
 
 
 }
