@@ -1,1 +1,5 @@
 rootProject.name = 'auth-service'
+include 'auth-service-model'
+include 'auth-service-client'
+include 'auth-service-core'
+
