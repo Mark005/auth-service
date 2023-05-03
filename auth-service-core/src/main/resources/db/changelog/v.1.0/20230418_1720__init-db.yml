@@ -195,6 +195,11 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: security_user_pkey
               - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    unique: true
+              - column:
                   name: email
                   type: VARCHAR(255)
               - column:
@@ -388,4 +393,13 @@ databaseChangeLog:
             tableName: credentials
             columnNames: security_user_id
             constraintName: uk_credentials_security_user_id
+
+  - changeSet:
+      id: 202304181720-24
+      author: Mark
+      changes:
+        - addUniqueConstraint:
+            tableName: security_user
+            columnNames: user_id
+            constraintName: uk_security_user_user_id
 

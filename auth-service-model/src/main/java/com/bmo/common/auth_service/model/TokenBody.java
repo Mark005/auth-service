@@ -11,5 +11,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class TokenBody {
   private UUID securityUserId;
+  private UUID userId;
   private Set<String> authorities;
 }

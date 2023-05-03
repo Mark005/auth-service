@@ -7,4 +7,5 @@ public interface SecurityUserService {
 
   SecurityUser getSecurityUserById(UUID securityUserId);
 
+  SecurityUser updateUserId(UUID secutityUserUuid, UUID userId);
 }

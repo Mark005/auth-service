@@ -33,6 +33,9 @@ public class SecurityUser {
   @Column(name = "id", nullable = false)
   private UUID id;
 
+  @Column(name = "user_id")
+  private UUID userId;
+
   private String name;
 
   private String surname;

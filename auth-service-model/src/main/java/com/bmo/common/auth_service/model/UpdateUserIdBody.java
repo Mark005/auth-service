@@ -3,15 +3,11 @@ package com.bmo.common.auth_service.model;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 @Builder
-@Getter
 @AllArgsConstructor
-public class SecurityUserDto {
-  private UUID securityUserId;
+public class UpdateUserIdBody {
   private UUID userId;
-  private String name;
-  private String surname;
-  private String email;
 }
