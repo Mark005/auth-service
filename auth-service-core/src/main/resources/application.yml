@@ -1,3 +1,6 @@
+server:
+  port: {SERVICE_PORT:8081}
+
 spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:54326/postgres?currentSchema=public}
@@ -26,6 +29,7 @@ oauth2:
         authorization-request-uri: /oauth2/authorization/github
         authorization-url: https://github.com/login/oauth/authorize
         scope: read:user
+        # Should be changed to gateway relative
         redirect-url: ${GITHUB_REDIRECT_URL:http://localhost:8080/login/oauth2/code/github}
         token-url: https://github.com/login/oauth/access_token
         user-info-url: https://api.github.com/user

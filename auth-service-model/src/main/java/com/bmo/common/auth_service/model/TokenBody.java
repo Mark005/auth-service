@@ -10,6 +10,6 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class TokenBody {
-  private UUID userId;
+  private UUID securityUserId;
   private Set<String> authorities;
 }

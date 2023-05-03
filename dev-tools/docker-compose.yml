@@ -13,24 +13,35 @@ services:
       POSTGRES_DB: postgres
     restart: unless-stopped
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./volumes/db-data:/var/lib/postgresql/data
 
-
-  liquibase:
-    container_name: liquibase_changelog_executor
-    image: liquibase/liquibase:4.4
-    depends_on:
-      - auth-postgres-db
+  wiremock:
+    container_name: test_wiremock
+    image: wiremock/wiremock
+    ports:
+      - "8089:8080"
     volumes:
-      - ./src/main/resources/db/changelog:/liquibase/changelog
-    command: [ '--driver=org.postgresql.Driver',
-               '--url=jdbc:postgresql://auth-postgres-db:5432/postgres',
-               '--changeLogFile=changelog/db.changelog-mas.yaml',
-               '--username=postgres',
-               '--password=postgres',
-               '--defaultSchemaName=public',
-               'generateChangeLog' ]
-    restart: "no"
+      - ./wiremock/stubs:/home/wiremock
+    restart: unless-stopped
+
+
+#  liquibase:
+#    container_name: liquibase_changelog_executor
+#    image: liquibase/liquibase:4.4
+#    depends_on:
+#      - auth-postgres-db
+#    volumes:
+#      - ./src/main/resources/db/changelog:/liquibase/changelog
+#    command: [ '--driver=org.postgresql.Driver',
+#               '--url=jdbc:postgresql://auth-postgres-db:5432/postgres',
+#               '--changeLogFile=changelog/db.changelog-mas.yaml',
+#               '--username=postgres',
+#               '--password=postgres',
+#               '--defaultSchemaName=public',
+#               'generateChangeLog' ]
+#    restart: "no"
+
+
 #  market-postgres-db:
 #    container_name: market-postgres-db
 #    image: postgres:12-alpine

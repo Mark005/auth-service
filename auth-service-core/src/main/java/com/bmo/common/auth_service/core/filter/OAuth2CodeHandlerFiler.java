@@ -40,10 +40,10 @@ public class OAuth2CodeHandlerFiler extends OncePerRequestFilter {
 
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) {
-    Set<String> redirectUrls = oAuthProperties.getProvidersRedirectUrls();
+    Set<String> redirectUris = oAuthProperties.getProvidersRedirectUris();
 
-    String requestUrl = request.getRequestURL().toString();
-    return !redirectUrls.contains(requestUrl);
+    String requestUri = request.getRequestURI().toString();
+    return !redirectUris.contains(requestUri);
   }
 
   @SneakyThrows
@@ -53,8 +53,8 @@ public class OAuth2CodeHandlerFiler extends OncePerRequestFilter {
       HttpServletResponse response,
       FilterChain filterChain) {
 
-    String redirectUrl = request.getRequestURL().toString();
-    ProviderSettings providerSettings = oAuthProperties.getProviderByRedirectUrl(redirectUrl);
+    String redirectUri = request.getRequestURI().toString();
+    ProviderSettings providerSettings = oAuthProperties.getProviderByRedirectUri(redirectUri);
     Assert.notNull(providerSettings, "Provider can not be null");
 
     String code = request.getParameter("code");

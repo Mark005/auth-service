@@ -76,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
         securityUserId);
 
     TokenBody tokenBody = TokenBody.builder()
-        .userId(securityUserId)
+        .securityUserId(securityUserId)
         .authorities(authorities)
         .build();
 

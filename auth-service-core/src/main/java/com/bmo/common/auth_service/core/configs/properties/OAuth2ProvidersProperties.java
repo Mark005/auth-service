@@ -2,6 +2,7 @@ package com.bmo.common.auth_service.core.configs.properties;
 
 
 import com.bmo.common.auth_service.core.model.oauth2.Provider;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,10 +29,12 @@ public class OAuth2ProvidersProperties {
         .collect(Collectors.toSet());
   }
 
-  public Set<String> getProvidersRedirectUrls() {
+  public Set<String> getProvidersRedirectUris() {
     return providers
         .stream()
         .map(ProviderSettings::getRedirectUrl)
+        .map(URI::create)
+        .map(URI::getPath)
         .collect(Collectors.toSet());
   }
 
@@ -43,10 +46,10 @@ public class OAuth2ProvidersProperties {
         .orElse(null);
   }
 
-  public ProviderSettings getProviderByRedirectUrl(String redirectUrl) {
+  public ProviderSettings getProviderByRedirectUri(String redirectUri) {
     return providers
         .stream()
-        .filter(providerSettings -> providerSettings.getRedirectUrl().equals(redirectUrl))
+        .filter(providerSettings -> URI.create(providerSettings.getRedirectUrl()).getPath().equals(redirectUri))
         .findFirst()
         .orElse(null);
   }
