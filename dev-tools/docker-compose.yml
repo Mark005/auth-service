@@ -1,0 +1,77 @@
+version: '3.7'
+
+services:
+
+  auth-postgres-db:
+    container_name: auth-postgres-db
+    image: postgres:13-alpine
+    ports:
+      - "54326:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    restart: unless-stopped
+    volumes:
+      - ./volumes/db-data:/var/lib/postgresql/data
+
+  wiremock:
+    container_name: test_wiremock
+    image: wiremock/wiremock
+    ports:
+      - "8089:8080"
+    volumes:
+      - ./wiremock/stubs:/home/wiremock
+    restart: unless-stopped
+
+
+#  liquibase:
+#    container_name: liquibase_changelog_executor
+#    image: liquibase/liquibase:4.4
+#    depends_on:
+#      - auth-postgres-db
+#    volumes:
+#      - ./src/main/resources/db/changelog:/liquibase/changelog
+#    command: [ '--driver=org.postgresql.Driver',
+#               '--url=jdbc:postgresql://auth-postgres-db:5432/postgres',
+#               '--changeLogFile=changelog/db.changelog-mas.yaml',
+#               '--username=postgres',
+#               '--password=postgres',
+#               '--defaultSchemaName=public',
+#               'generateChangeLog' ]
+#    restart: "no"
+
+
+#  market-postgres-db:
+#    container_name: market-postgres-db
+#    image: postgres:12-alpine
+#    ports:
+#      - "54327:5432"
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: postgres
+#    restart: unless-stopped
+#
+#  delivery-postgres-db:
+#    container_name: delivery-postgres-db
+#    image: postgres:12-alpine
+#    ports:
+#      - "54328:5432"
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: postgres
+#    restart: unless-stopped
+#
+#  notification-postgres-db:
+#    container_name: notification-postgres-db
+#    image: postgres:12-alpine
+#    ports:
+#      - "54329:5432"
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: postgres
+#    restart: unless-stopped
+
