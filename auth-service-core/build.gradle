@@ -39,7 +39,7 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
 
-//    implementation 'com.bmo.common:auth-service-model:1.0-SNAPSHOT'
+//    implementation 'com.bmo.common:auth-service-model:0.1.0-SNAPSHOT'
     implementation project(':auth-service-model')
 
 
