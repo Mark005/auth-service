@@ -13,11 +13,11 @@ public interface SecurityUserService {
 
   Set<String> getSecurityUserAuthorities(UUID secutityUserUuid);
 
-  void grantAuthoritiesToUser(UUID secutityUserUuid, Set<UUID> authorityIdsToAdd);
+  void grantAuthoritiesToUser(UUID currentSecurityUserId, UUID secutityUserUuid, Set<UUID> authorityIdsToAdd);
 
-  void removeAuthoritiesFromUser(UUID secutityUserUuid, Set<UUID> authorityIdsToRemove);
+  void removeAuthoritiesFromUser(UUID currentSecurityUserId, UUID secutityUserUuid, Set<UUID> authorityIdsToRemove);
 
-  void grantAuthorityGroupsToUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToAdd);
+  void grantAuthorityGroupsToUser(UUID currentSecurityUserId, UUID secutityUserUuid, Set<UUID> authorityGroupIdsToAdd);
 
-  void removeAuthorityGroupsFromUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToRemove);
+  void removeAuthorityGroupsFromUser(UUID currentSecurityUserId, UUID secutityUserUuid, Set<UUID> authorityGroupIdsToRemove);
 }

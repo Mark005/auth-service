@@ -41,6 +41,7 @@ dependencies {
 
 //    implementation 'com.bmo.common:auth-service-model:0.1.0-SNAPSHOT'
     implementation project(':auth-service-model')
+    implementation 'com.bmo.common:gateway-headers:0.1.0-SNAPSHOT'
 
 
     implementation 'commons-codec:commons-codec:1.13'

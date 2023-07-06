@@ -46,7 +46,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
   }
 
   @Override
-  public void grantAuthoritiesToUser(UUID secutityUserUuid, Set<UUID> authorityIdsToAdd) {
+  public void grantAuthoritiesToUser(
+      UUID currentSecurityUserId,
+      UUID secutityUserUuid,
+      Set<UUID> authorityIdsToAdd) {
+
+    checkUsersAreDifferent(currentSecurityUserId, secutityUserUuid);
+
     SecurityUser securityUser = getSecurityUserById(secutityUserUuid);
 
     List<Authority> authoritiesToAdd = authorityIdsToAdd.stream()
@@ -60,7 +66,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
   }
 
   @Override
-  public void removeAuthoritiesFromUser(UUID secutityUserUuid, Set<UUID> authorityIdsToRemove) {
+  public void removeAuthoritiesFromUser(
+      UUID currentSecurityUserId,
+      UUID secutityUserUuid,
+      Set<UUID> authorityIdsToRemove) {
+
+    checkUsersAreDifferent(currentSecurityUserId, secutityUserUuid);
+
     SecurityUser securityUser = getSecurityUserById(secutityUserUuid);
 
     securityUser.getAuthorities()
@@ -70,7 +82,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
   }
 
   @Override
-  public void grantAuthorityGroupsToUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToAdd) {
+  public void grantAuthorityGroupsToUser(
+      UUID currentSecurityUserId,
+      UUID secutityUserUuid,
+      Set<UUID> authorityGroupIdsToAdd) {
+
+    checkUsersAreDifferent(currentSecurityUserId, secutityUserUuid);
+
     SecurityUser securityUser = getSecurityUserById(secutityUserUuid);
 
     List<AuthorityGroup> authorityGroupsToAdd = authorityGroupIdsToAdd.stream()
@@ -84,12 +102,24 @@ public class SecurityUserServiceImpl implements SecurityUserService {
   }
 
   @Override
-  public void removeAuthorityGroupsFromUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToRemove) {
+  public void removeAuthorityGroupsFromUser(
+      UUID currentSecurityUserId,
+      UUID secutityUserUuid,
+      Set<UUID> authorityGroupIdsToRemove) {
+
+    checkUsersAreDifferent(currentSecurityUserId, secutityUserUuid);
+
     SecurityUser securityUser = getSecurityUserById(secutityUserUuid);
 
     securityUser.getAuthorityGroups()
         .removeIf(authority -> authorityGroupIdsToRemove.contains(authority.getId()));
 
     securityUserRepository.save(securityUser);
+  }
+
+  private void checkUsersAreDifferent(UUID currentSecurityUserId, UUID secutityUserUuid) {
+    if (currentSecurityUserId == secutityUserUuid) {
+      throw new AuthServiceBusinessException("Can not to change authorities for yourself");
+    }
   }
 }
