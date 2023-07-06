@@ -15,6 +15,9 @@ INSERT INTO authority (id, authority, description)
 VALUES (gen_random_uuid(), 'security-user:read', 'Access to read security users');
 
 INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'authority:read', 'Access to read authorities');
+
+INSERT INTO authority (id, authority, description)
 VALUES (gen_random_uuid(), 'user-authority:update', 'Access to change security user authorities and authority groups');
 
 INSERT INTO authority (id, authority, description)
@@ -67,6 +70,10 @@ VALUES ((SELECT id FROM authority WHERE authority = 'product-item:delete'),
 -- bing FULL_ACCESS authority_group with authorities
 INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
 VALUES ((SELECT id FROM authority WHERE authority = 'security-user:read'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'authority:read'),
         (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
 
 INSERT INTO authority_group_authorities (authorities_id, authority_group_id)

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum AuthorityEnum {
     SECURITY_USER_READ("security-user:read"),
 
+    AUTHORITY_READ("authority:read"),
+
     USER_AUTHORITY_UPDATE("user-authority:update"),
 
     USER_READ("user:read"),
