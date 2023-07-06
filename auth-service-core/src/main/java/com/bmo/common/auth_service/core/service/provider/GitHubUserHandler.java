@@ -15,6 +15,7 @@ import com.bmo.common.auth_service.core.repository.SecurityUserRepository;
 import com.bmo.common.auth_service.core.service.AuthService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,7 @@ public class GitHubUserHandler implements UserHandler<GitHubProvidedUser> {
     SecurityUser securityUser = SecurityUser.builder()
         .name(gitHubUser.getName())
         .email(gitHubUser.getEmail())
-        .authorityGroups(List.of(authorityGroup))
+        .authorityGroups(Set.of(authorityGroup))
         .build();
     securityUserRepository.save(securityUser);
 

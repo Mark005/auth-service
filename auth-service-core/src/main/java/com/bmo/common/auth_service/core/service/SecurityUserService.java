@@ -12,4 +12,12 @@ public interface SecurityUserService {
   SecurityUser updateUserId(UUID secutityUserUuid, UUID userId);
 
   Set<String> getSecurityUserAuthorities(UUID secutityUserUuid);
+
+  void grantAuthoritiesToUser(UUID secutityUserUuid, Set<UUID> authorityIdsToAdd);
+
+  void removeAuthoritiesFromUser(UUID secutityUserUuid, Set<UUID> authorityIdsToRemove);
+
+  void grantAuthorityGroupsToUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToAdd);
+
+  void removeAuthorityGroupsFromUser(UUID secutityUserUuid, Set<UUID> authorityGroupIdsToRemove);
 }

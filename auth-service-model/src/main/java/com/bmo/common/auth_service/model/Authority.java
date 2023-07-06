@@ -7,7 +7,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Authority {
     SECURITY_USER_READ("security-user:read"),
-    USER_READ("user:read")
+
+    USER_AUTHORITY_UPDATE("user-authority:update"),
+
+    USER_READ("user:read"),
+
+    CATEGORY_CREATE("category:create"),
+    CATEGORY_UPDATE("category:update"),
+    CATEGORY_DELETE("category:delete"),
+
+    PRODUCT_ITEM_READ("product-item:read"),
+    PRODUCT_ITEM_CREATE("product-item:create"),
+    PRODUCT_ITEM_UPDATE("product-item:update"),
+    PRODUCT_ITEM_DELETE("product-item:delete"),
     ;
 
     private final String stringAuthority;

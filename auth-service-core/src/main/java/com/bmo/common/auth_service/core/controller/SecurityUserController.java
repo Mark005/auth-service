@@ -12,11 +12,14 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,6 +38,38 @@ public class SecurityUserController {
     return ResponseEntity.ok(authorities);
   }
 
+  @PatchMapping("/users/{userId}/authorities/add")
+  public ResponseEntity<Void> grantAuthoritiesToUser(
+      @PathVariable("userId") UUID secutityUserUuid,
+      @NotBlank @RequestBody Set<UUID> authorityIdsToAdd) {
+    securityUserService.grantAuthoritiesToUser(secutityUserUuid, authorityIdsToAdd);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PatchMapping("/users/{userId}/authorities/remove")
+  public ResponseEntity<Void> removeAuthoritiesFromUser(
+      @PathVariable("userId") UUID secutityUserUuid,
+      @NotBlank @RequestBody Set<UUID> authorityIdsToRemove) {
+    securityUserService.removeAuthoritiesFromUser(secutityUserUuid, authorityIdsToRemove);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PatchMapping("/users/{userId}/authority-group/add")
+  public ResponseEntity<Void> grantAuthorityGroupsToUser(
+      @PathVariable("userId") UUID secutityUserUuid,
+      @NotBlank @RequestBody Set<UUID> authorityGroupIdsToAdd) {
+    securityUserService.grantAuthorityGroupsToUser(secutityUserUuid, authorityGroupIdsToAdd);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PatchMapping("/users/{userId}/authority-group/remove")
+  public ResponseEntity<Void> removeAuthorityGroupsFromUser(
+      @PathVariable("userId") UUID secutityUserUuid,
+      @NotBlank @RequestBody Set<UUID> authorityGroupIdsToRemove) {
+    securityUserService.removeAuthorityGroupsFromUser(secutityUserUuid, authorityGroupIdsToRemove);
+    return ResponseEntity.noContent().build();
+  }
+
   @GetMapping("/users/{id}")
   public ResponseEntity<SecurityUserDto> getSecurityUserInfo(@PathVariable("id") UUID secutityUserUuid) {
     SecurityUser securityUser = securityUserService.getSecurityUserById(secutityUserUuid);
@@ -50,4 +85,6 @@ public class SecurityUserController {
     SecurityUserDto securityUserDto = securityUserMapper.map(securityUser);
     return ResponseEntity.ok(securityUserDto);
   }
+
+
 }

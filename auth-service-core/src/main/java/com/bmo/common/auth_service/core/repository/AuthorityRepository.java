@@ -1,6 +1,7 @@
 package com.bmo.common.auth_service.core.repository;
 
 import com.bmo.common.auth_service.core.dbmodel.Authority;
+import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,4 +32,7 @@ public interface AuthorityRepository extends JpaRepository<Authority, UUID> {
       """,
       nativeQuery = true)
   Set<String> findAllAuthoritiesBySecurityUserId(@Param("securityUserId") UUID securityUserId);
+
+
+  Set<Authority> findAllByIdIn(Collection<UUID> ids);
 }

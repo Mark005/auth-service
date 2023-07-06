@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
         .name(registerRequestBody.getName())
         .surname(registerRequestBody.getSurname())
         .email(registerRequestBody.getEmail())
-        .authorityGroups(List.of(authorityGroup))
+        .authorityGroups(Set.of(authorityGroup))
         .build();
 
     String encodedPass = passwordEncoder.encode(registerRequestBody.getPassword());

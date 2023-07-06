@@ -1,5 +1,6 @@
 package com.bmo.common.auth_service.model;
 
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,4 +15,6 @@ public class SecurityUserDto {
   private String name;
   private String surname;
   private String email;
+  private Set<AuthorityGroupDto> authorityGroups;
+  private Set<AuthorityDto> authorities;
 }

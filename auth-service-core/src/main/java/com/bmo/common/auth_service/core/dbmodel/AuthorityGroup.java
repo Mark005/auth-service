@@ -3,6 +3,7 @@ package com.bmo.common.auth_service.core.dbmodel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 @Builder
 @Getter
@@ -58,4 +60,20 @@ public class AuthorityGroup {
   private List<Authority> authorities = new ArrayList<>();
 
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+      return false;
+    }
+    AuthorityGroup authorityGroup = (AuthorityGroup) o;
+    return getId() != null && Objects.equals(getId(), authorityGroup.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }

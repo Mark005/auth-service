@@ -1,7 +1,9 @@
 package com.bmo.common.auth_service.core.dbmodel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,14 +49,14 @@ public class SecurityUser {
       joinColumns = @JoinColumn(name = "security_user_id"),
       inverseJoinColumns = @JoinColumn(name = "authority_groups_id"))
   @Builder.Default
-  private List<AuthorityGroup> authorityGroups = new ArrayList<>();
+  private Set<AuthorityGroup> authorityGroups = new HashSet<>();
 
   @ManyToMany
   @JoinTable(name = "security_user_authorities",
       joinColumns = @JoinColumn(name = "security_user_id"),
       inverseJoinColumns = @JoinColumn(name = "authorities_id"))
   @Builder.Default
-  private List<Authority> authorities = new ArrayList<>();
+  private Set<Authority> authorities = new HashSet<>();
 
   @OneToOne(mappedBy = "securityUser", orphanRemoval = true)
   private GitHubUser gitHubUser;
