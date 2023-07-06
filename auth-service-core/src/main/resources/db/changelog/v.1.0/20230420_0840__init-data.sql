@@ -39,6 +39,20 @@ VALUES (gen_random_uuid(), 'product-item:update', 'Access to update product item
 INSERT INTO authority (id, authority, description)
 VALUES (gen_random_uuid(), 'product-item:delete', 'Access to delete product item');
 
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'delivery-type:create', 'Access to create new delivery type');
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'delivery-type:update', 'Access to update delivery type, enable/disable');
+
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'email-account:read', 'Access to read email account for sending notifications');
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'email-account:create', 'Access to create email account for sending notifications');
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'email-account:update', 'Access to update email account for sending notifications');
+INSERT INTO authority (id, authority, description)
+VALUES (gen_random_uuid(), 'email-account:delete', 'Access to delete email account for sending notifications');
+
 
 -- bing CUSTOMER authority_group with authorities
 
@@ -105,5 +119,25 @@ VALUES ((SELECT id FROM authority WHERE authority = 'product-item:update'),
         (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
 INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
 VALUES ((SELECT id FROM authority WHERE authority = 'product-item:delete'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'delivery-type:create'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'delivery-type:update'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'email-account:read'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'email-account:create'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'email-account:update'),
+        (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
+INSERT INTO authority_group_authorities (authorities_id, authority_group_id)
+VALUES ((SELECT id FROM authority WHERE authority = 'email-account:delete'),
         (SELECT id FROM authority_group WHERE group_tag = 'FULL_ACCESS'));
 

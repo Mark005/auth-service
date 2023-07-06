@@ -22,6 +22,14 @@ public enum AuthorityEnum {
     PRODUCT_ITEM_CREATE("product-item:create"),
     PRODUCT_ITEM_UPDATE("product-item:update"),
     PRODUCT_ITEM_DELETE("product-item:delete"),
+
+    DELIVERY_TYPE_CREATE("delivery-type:create"),
+    DELIVERY_TYPE_UPDATE("delivery-type:update"),
+
+    EMAIL_ACCOUNT_READ("email-account:read"),
+    EMAIL_ACCOUNT_CREATE("email-account:create"),
+    EMAIL_ACCOUNT_UPDATE("email-account:update"),
+    EMAIL_ACCOUNT_DELETE("email-account:delete"),
     ;
 
     private final String stringAuthority;
