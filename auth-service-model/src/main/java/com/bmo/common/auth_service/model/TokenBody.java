@@ -12,5 +12,5 @@ import lombok.Data;
 public class TokenBody {
   private UUID securityUserId;
   private UUID userId;
-  private Set<Authority> authorities;
+  private Set<AuthorityEnum> authorities;
 }

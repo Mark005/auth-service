@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Authority {
+public enum AuthorityEnum {
     SECURITY_USER_READ("security-user:read"),
 
     USER_AUTHORITY_UPDATE("user-authority:update"),
@@ -24,12 +24,12 @@ public enum Authority {
 
     private final String stringAuthority;
 
-    public static Authority getByStringAuthority(String stringAuthority) {
-        for (Authority value : values()) {
+    public static AuthorityEnum getByStringAuthority(String stringAuthority) {
+        for (AuthorityEnum value : values()) {
             if (value.getStringAuthority().equals(stringAuthority)) {
                 return value;
             }
         }
-        throw new IllegalArgumentException("Authority {%s} does not exists".formatted(stringAuthority));
+        throw new IllegalArgumentException("AuthorityEnum {%s} does not exists".formatted(stringAuthority));
     }
 }

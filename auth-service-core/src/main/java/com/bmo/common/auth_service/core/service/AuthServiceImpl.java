@@ -4,7 +4,7 @@ import com.bmo.common.auth_service.core.dbmodel.AuthorityGroup;
 import com.bmo.common.auth_service.core.dbmodel.Credentials;
 import com.bmo.common.auth_service.core.dbmodel.GroupTag;
 import com.bmo.common.auth_service.core.dbmodel.SecurityUser;
-import com.bmo.common.auth_service.model.Authority;
+import com.bmo.common.auth_service.model.AuthorityEnum;
 import com.bmo.common.auth_service.model.exception.CredentialsNotValidException;
 import com.bmo.common.auth_service.core.repository.AuthorityGroupRepository;
 import com.bmo.common.auth_service.core.repository.AuthorityRepository;
@@ -15,7 +15,6 @@ import com.bmo.common.auth_service.model.LoginRequestBody;
 import com.bmo.common.auth_service.model.RegisterRequestBody;
 import com.bmo.common.auth_service.model.TokenBody;
 import com.bmo.common.auth_service.model.ValidateTokenRequestBody;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -75,10 +74,10 @@ public class AuthServiceImpl implements AuthService {
 
     UUID securityUserId = securityUser.getId();
 
-    Set<Authority> authorities =
+    Set<AuthorityEnum> authorities =
             authorityRepository.findAllAuthoritiesBySecurityUserId(securityUserId)
                     .stream()
-                    .map(Authority::getByStringAuthority)
+                    .map(AuthorityEnum::getByStringAuthority)
                     .collect(Collectors.toSet());
 
     TokenBody tokenBody = TokenBody.builder()

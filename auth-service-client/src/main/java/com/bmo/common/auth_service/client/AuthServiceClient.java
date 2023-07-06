@@ -1,6 +1,6 @@
 package com.bmo.common.auth_service.client;
 
-import com.bmo.common.auth_service.model.Authority;
+import com.bmo.common.auth_service.model.AuthorityEnum;
 import com.bmo.common.auth_service.model.SecurityUserDto;
 import com.bmo.common.auth_service.model.TokenBody;
 import com.bmo.common.auth_service.model.ValidateTokenRequestBody;
@@ -17,7 +17,7 @@ import java.util.UUID;
 public interface AuthServiceClient {
 
   @GetMapping("/users/{id}/authorities")
-  Set<Authority> getSecurityUserAuthorities(@PathVariable("id") UUID secutityUserUuid);
+  Set<AuthorityEnum> getSecurityUserAuthorities(@PathVariable("id") UUID secutityUserUuid);
 
   @PostMapping("/jwt/validate")
   TokenBody validate(@RequestBody ValidateTokenRequestBody validateTokenRequestBody);

@@ -13,6 +13,6 @@ public class AuthToken {
 
   private String token;
   private ZonedDateTime expiresAt;
-  private Set<Authority> authorities;
+  private Set<AuthorityEnum> authorities;
 
 }
