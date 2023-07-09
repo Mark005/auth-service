@@ -82,7 +82,7 @@ public class SecurityUserController {
     return ResponseEntity.ok(securityUserDto);
   }
 
-  @PatchMapping("/users/{id}")
+  @PatchMapping("/users/{id}/user-id")
   public ResponseEntity<SecurityUserDto> updateUserId(
       @PathVariable("id") UUID secutityUserUuid,
       UpdateUserIdBody updateUserIdBody) {
