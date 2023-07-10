@@ -85,7 +85,7 @@ public class SecurityUserController {
   @PatchMapping("/users/{id}/user-id")
   public ResponseEntity<SecurityUserDto> updateUserId(
       @PathVariable("id") UUID secutityUserUuid,
-      UpdateUserIdBody updateUserIdBody) {
+      @RequestBody UpdateUserIdBody updateUserIdBody) {
     SecurityUser securityUser = securityUserService.updateUserId(secutityUserUuid, updateUserIdBody.getUserId());
     SecurityUserDto securityUserDto = securityUserMapper.map(securityUser);
     return ResponseEntity.ok(securityUserDto);
